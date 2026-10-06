@@ -1,0 +1,28 @@
+EVIDENCE CARD 01
+Frontend request:
+GET /api/complaints
+Backend route:
+GET /api/complaints
+REAL / FAKE / UNKNOWN
+
+EVIDENCE CARD 02
+Frontend request:
+GET /api/complaint
+Backend route:
+GET /api/complaints
+REAL / FAKE / UNKNOWN
+
+EVIDENCE CARD 03
+API requirement:
+POST must return HTTP 201 when a complaint is created.
+REAL / FAKE / UNKNOWN
+
+EVIDENCE CARD 04
+Database note:
+"MongoDB stores complaint records."
+REAL / FAKE / UNKNOWN
+
+EVIDENCE CARD 05
+Server log:
+"Route /api/complaints/:id/status was never registered."
+REAL / FAKE / UNKNOWN
