@@ -2,15 +2,12 @@ services:
   - type: web
     name: campusconnect
     runtime: node
-    rootDir: Backend
-    buildCommand: npm ci && npm run build:frontend
-    startCommand: npm start
+    buildCommand: npm --prefix Backend ci && npm --prefix Backend run build:frontend
+    startCommand: npm --prefix Backend start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: FRONTEND_BUILD_PATH
-        value: ../frontend/dist
       - key: MONGODB_URI
         sync: false
       - key: ADMIN_EMAIL
