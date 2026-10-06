@@ -5,9 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "build:frontend": "npm --prefix ../frontend run build",
-    "dev": "npm run build:frontend && node server.js",
-    "start": "npm run build:frontend && node server.js",
+    "build:frontend": "npm --prefix ../frontend ci && npm --prefix ../frontend run build",
+    "dev": "node server.js",
+    "start": "node server.js",
     "make-admin": "node scripts/makeAdmin.js"
   },
   "dependencies": {

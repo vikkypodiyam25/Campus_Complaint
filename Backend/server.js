@@ -14,13 +14,23 @@ dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
-const frontendBuildPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../frontend/dist");
+const backendDirectory = path.dirname(fileURLToPath(import.meta.url));
+// Render runs this service with Main_Project as its root directory. Allow an
+// explicit path for other layouts, and retain the local sibling default.
+const frontendBuildPath = path.resolve(
+    backendDirectory,
+    process.env.FRONTEND_BUILD_PATH || "../frontend/dist"
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
     cors({
-        origin: ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"],
+        // Same-origin production requests do not need CORS. Keep local dev
+        // origins and allow a separate frontend host when configured.
+        origin: process.env.FRONTEND_URL
+            ? ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000", process.env.FRONTEND_URL]
+            : ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"],
         credentials: true
     })
 );
@@ -49,6 +59,8 @@ app.use("/api", (req, res) => {
 
 app.use(express.static(frontendBuildPath));
 app.get("*", (req, res, next) => {
+    if (req.path === "/api" || req.path.startsWith("/api/")) return next();
+    if (!req.accepts("html")) return next();
     res.sendFile(path.join(frontendBuildPath, "index.html"), (error) => {
         if (error) next(error);
     });
@@ -74,7 +86,7 @@ const startServer = async () => {
     try {
         const connected = await connectToDatabase();
         if (!connected) {
-            throw new Error("MongoDB connection is required; refusing to start without persistent storage.");
+            throw new Error("MongoDB connection is required. Check MONGODB_URI and MongoDB Atlas Network Access.");
         }
         await seedDemoData();
     } catch (error) {
