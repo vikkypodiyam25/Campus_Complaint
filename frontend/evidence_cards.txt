@@ -1,0 +1,24 @@
+EVIDENCE CARD 01
+Requirement:
+"Changing a complaint status must immediately update the dashboard count."
+REAL / FAKE / UNKNOWN
+
+EVIDENCE CARD 02
+User report:
+"Search works for title but not for student name."
+REAL / FAKE / UNKNOWN
+
+EVIDENCE CARD 03
+Developer note:
+"All complaint data is currently stored only in React state."
+REAL / FAKE / UNKNOWN
+
+EVIDENCE CARD 04
+Architecture note:
+"Persistent data will eventually come from Express + MongoDB."
+REAL / FAKE / UNKNOWN
+
+EVIDENCE CARD 05
+Console report:
+"Cannot read properties of undefined (reading 'map')"
+REAL / FAKE / UNKNOWN

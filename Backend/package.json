@@ -5,11 +5,16 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch server.js",
-    "start": "node server.js"
+    "build:frontend": "npm --prefix ../frontend run build",
+    "dev": "npm run build:frontend && node server.js",
+    "start": "npm run build:frontend && node server.js",
+    "make-admin": "node scripts/makeAdmin.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
-    "express": "^4.21.1"
+    "dotenv": "^18.0.5",
+    "express": "^4.21.1",
+    "mongoose": "^9.10.3"
   }
 }
